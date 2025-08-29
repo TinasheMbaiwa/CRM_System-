@@ -1,5 +1,7 @@
 package com.faramatsi.crm.customer;
 
+import com.faramatsi.crm.complaint.Complaint;
+import com.faramatsi.crm.feedback.Feedback;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
@@ -28,8 +30,11 @@ public class Customer {
     private String phoneNumber ;
     private String address;
     LocalDate dateOfBirth;
-    List<String> complaints;
-    List<String> feedbacks;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Complaint> complaints;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Feedback> feedbacks;
 
     //Customer constructors
 
@@ -41,7 +46,7 @@ public class Customer {
     public Customer(String firstName, String lastName,
                     String email, String phoneNumber,
                     String address, LocalDate dateOfBirth,
-                    List<String> complaints, List<String> feedbacks) {
+                    List<Complaint> complaints, List<Feedback> feedbacks) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -51,6 +56,16 @@ public class Customer {
         this.complaints = complaints;
         this.feedbacks = feedbacks;
     }
+
+    public Customer(String firstName, String lastName, String email, String phoneNumber, String address, LocalDate dateOfBirth) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.dateOfBirth = dateOfBirth;
+    }
+
     //Testing Constructor
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
@@ -114,19 +129,19 @@ public class Customer {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public List<String> getComplaints() {
+    public List<Complaint> getComplaints() {
         return complaints;
     }
 
-    public void setComplaints(List<String> complaints) {
+    public void setComplaints(List<Complaint> complaints) {
         this.complaints = complaints;
     }
 
-    public List<String> getFeedbacks() {
+    public List<Feedback> getFeedbacks() {
         return feedbacks;
     }
 
-    public void setFeedbacks(List<String> feedbacks) {
+    public void setFeedbacks(List<Feedback> feedbacks) {
         this.feedbacks = feedbacks;
     }
 

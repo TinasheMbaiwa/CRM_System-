@@ -1,13 +1,11 @@
 package com.faramatsi.crm.customer;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("crm/v1")
+@RequestMapping("crm/customer/v1")
 public class CustomerController {
 
     CustomerService service ;
@@ -19,5 +17,10 @@ public class CustomerController {
     @GetMapping
     public List<Customer> getCustomers(){
         return service.getCustomers();
+    }
+
+    @PostMapping
+    public void addCustomer(@RequestBody Customer customer){
+        service.addCustomer(customer);
     }
 }

@@ -1,5 +1,7 @@
 package com.faramatsi.crm.customer;
 
+import com.faramatsi.crm.complaint.Complaint;
+import com.faramatsi.crm.feedback.Feedback;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,8 +26,8 @@ public class CustomerConfig implements CommandLineRunner  {
              "263784431080",
              "Harare, Borrowdale",
                 LocalDate.of(1996,11,14),
-                List.of("Bad wash"),
-                List.of("Not comming back")
+                null,
+                null
         );
         Customer kim = new Customer(
                 "Kim",
@@ -34,8 +36,8 @@ public class CustomerConfig implements CommandLineRunner  {
                 "263774567831",
                 "XoXo, South Korea",
                 LocalDate.of(1975,7,19),
-                List.of("Great Service"),
-                List.of("Definitely coming back")
+                null,
+                null
         );
         repository.saveAll(List.of(trey,kim));
     }
