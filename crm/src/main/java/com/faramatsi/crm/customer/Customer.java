@@ -2,6 +2,7 @@ package com.faramatsi.crm.customer;
 
 import com.faramatsi.crm.complaint.Complaint;
 import com.faramatsi.crm.feedback.Feedback;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
@@ -31,9 +32,11 @@ public class Customer {
     private String address;
     LocalDate dateOfBirth;
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Complaint> complaints;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Feedback> feedbacks;
 
     //Customer constructors

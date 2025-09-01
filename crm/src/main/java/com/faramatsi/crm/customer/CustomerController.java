@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("crm/customer/v1")
+@RequestMapping("crm/customers/v1")
 public class CustomerController {
 
     CustomerService service ;
@@ -19,7 +19,7 @@ public class CustomerController {
         return service.getCustomers();
     }
 
-    @PostMapping
+    @PostMapping("add/")
     public void addCustomer(@RequestBody Customer customer){
         service.addCustomer(customer);
     }

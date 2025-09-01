@@ -18,7 +18,7 @@ public class ComplaintController {
       return   service.getAllComplaints();
     }
 
-    @PostMapping
+    @PostMapping("add/")
     public void addComplaint(@RequestBody Complaint complaint){
         service.addComplaint(complaint);
     }
