@@ -3,9 +3,12 @@ package com.faramatsi.crm.feedback;
 import com.faramatsi.crm.customer.Customer;
 import com.faramatsi.crm.customer.CustomerRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class FeedbackServiceImpl implements FeedbackService{
 
@@ -40,4 +43,32 @@ public class FeedbackServiceImpl implements FeedbackService{
         }
 
     }
+
+    public ResponseEntity< Feedback> updateFeedback(Long id, Feedback feedback) {
+
+        Optional<Feedback> feedbackOptional = repository.findById(id);
+        if(feedbackOptional.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+              Feedback oldFeedback = feedbackOptional.get();
+              oldFeedback.setMessage(feedback.getMessage());
+              Feedback updatedFeedback = repository.save(oldFeedback);
+              return ResponseEntity.ok(updatedFeedback);
+         }
+    }
+
+    @Override
+    public ResponseEntity<Feedback> deleteFeedbackById(Long id) {
+        Optional<Feedback> feedback = repository.findById(id);
+        if(feedback.isEmpty())
+        {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            repository.delete(feedback.get());
+
+            return ResponseEntity.ok(feedback.get());
+        }
+        }
+
 }
