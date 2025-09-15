@@ -14,9 +14,9 @@ public class UserController {
 
     @GetMapping
     public List<User> getAllUsers(){
-        return List.of(new User());
+        return service.getAllUsers();
     }
-    @PostMapping("add")
+    @PostMapping("/register")
     public ResponseEntity<User> addUser(@RequestBody User user){
         return service.addUser(user);
     }

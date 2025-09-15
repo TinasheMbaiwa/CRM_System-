@@ -2,8 +2,12 @@ package com.faramatsi.crm.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -11,8 +15,11 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
 
     private UserRepository repository;
+    private PasswordEncoder encoder ;
     @Override
     public ResponseEntity<User> addUser(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setUserName(user.getEmail());
         repository.save(user);
         return ResponseEntity.ok(user);
     }
@@ -49,5 +56,10 @@ public class UserServiceImpl implements UserService{
             return ResponseEntity.ok(delUser);
 
         }
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return repository.findAll();
     }
 }
